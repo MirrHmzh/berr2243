@@ -1,4 +1,3 @@
-
 const express = require('express');
 const { MongoClient } = require('mongodb');
 const port = 3000
@@ -16,7 +15,7 @@ async function connectToMongoDB() {
         await client.connect();
         console.log("Connected to MongoDB!");
 
-        db = client.db("testDB");
+        db = client.db("testdb");
     } catch (err) {
         console.error("Error:", err);
     }
@@ -37,18 +36,18 @@ app.get('/rides', async (req, res) => {
     }   catch (err) {
         res.status(500).json({ error: "Failed to fetch rides" });
     }
-});
+ });
 
  
  // POST /rides - Create a new ride
-app.post('/rides', async (req, res) => {
+ app.post('/rides', async (req, res) => {
     try {
         const result = await db.collection('rides').insertOne(req.body); 
         res.status(201).json({ id: result.insertedId });
     }   catch (err) {
         res.status(400).json({ error: "Invalid ride data" });
     }
-});
+ });
 
  
     // PATCH /rides/:id - Update ride status 
